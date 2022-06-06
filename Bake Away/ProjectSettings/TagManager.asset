@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ClosedBox
+  - ClosedCup
+  - CheeseCake
+  - OpenedBox
+  - Bin
+  - CoffeeMachine
   layers:
   - Default
   - TransparentFX
