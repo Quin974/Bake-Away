@@ -10,6 +10,8 @@ TagManager:
   - OpenedBox
   - Bin
   - CoffeeMachine
+  - BoxWithFood
+  - Customer
   layers:
   - Default
   - TransparentFX

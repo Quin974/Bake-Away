@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClickManager : MonoBehaviour
 {
+    private bool clickedFoodBox = false;
+    private bool clickedCustomer = false;
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -32,7 +34,7 @@ public class ClickManager : MonoBehaviour
                 break;
 
             case "CheeseCake":
-                Spawning.instance.spawnFood();
+                Spawning.instance.spawnFood(0);
                 break;
 
             case "OpenedBox":
@@ -45,6 +47,17 @@ public class ClickManager : MonoBehaviour
 
             case "Bin":
                 Spawning.instance.destroyFoodClone();
+                break;
+
+            case "BoxWithFood":
+                clickedFoodBox = true;
+                break;
+
+            case "Customer":
+                if (clickedFoodBox)
+                {
+                    Spawning.instance.serveFood();
+                }
                 break;
         }
     }

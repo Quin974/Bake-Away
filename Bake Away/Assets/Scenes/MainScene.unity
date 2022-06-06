@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 237195647}
   - component: {fileID: 237195648}
   m_Layer: 0
-  m_Name: Spawn Manager
+  m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,9 +250,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   box: {fileID: 845076671378056745, guid: babc21dee81201844ae0fd059ad69dc1, type: 3}
   cup: {fileID: 2881079849458516997, guid: 6f8029053500a184cb79df19250647e8, type: 3}
-  food: {fileID: 4258074796787040320, guid: 892f69782c0144c47be6d3b93df21480, type: 3}
+  foodSprite:
+  - {fileID: 21300000, guid: 7613cc60637a6a84ea8b2f0c33960ab3, type: 3}
   closedBox: {fileID: 7639289539503433864, guid: 9a53cbfa61ce59c4585b7d334008acb6, type: 3}
   closedCup: {fileID: 8025590392600820389, guid: a265d7d8c30cc0d4fb2ef065f0a56e35, type: 3}
+  customer: {fileID: 4202244510737233580, guid: 7e660544235a30846a893825e5f80c56, type: 3}
 --- !u!1 &248346463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1034,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.017127275, y: -0.017128468}
+  m_Offset: {x: 0.017127723, y: 1.2139851}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1043,7 +1045,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.6469665, y: 4.7431765}
+  m_Size: {x: 0.5691833, y: 0.63946503}
   m_EdgeRadius: 0
 --- !u!1 &1845153616
 GameObject:
