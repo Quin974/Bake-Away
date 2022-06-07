@@ -154,6 +154,13 @@ public class Spawning : MonoBehaviour
             foodRenderer.sprite = null;
             canSpawnFood = true;
         }
+
+        else
+        {
+            Destroy(closedBoxClone);
+            canSpawnFood = true;
+            canSpawnBox = true;
+        }
     }
 
     private void setRandomTime()
@@ -210,9 +217,7 @@ public class Spawning : MonoBehaviour
     public bool checkDrink(GameObject obj, string drinkName)
     {
         bool check = false;
-        Debug.Log("Drink: " + drinkName);
         string drinkOrder = obj.transform.Find("Order").GetComponent<SpriteRenderer>().sprite.name;
-        Debug.Log("Order: " + drinkOrder);
         if (drinkOrder == drinkName)
         {
             check = true;

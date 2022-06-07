@@ -52,7 +52,18 @@ public class ClickManager : MonoBehaviour
                 break;
 
             case "Bin":
-                Spawning.instance.destroyFoodClone();
+                if (clickedFoodBox)
+                {
+                    Spawning.instance.destroyFoodClone();
+                    clickedFoodBox = false;
+                    canClick = true;
+                }
+
+                else
+                {
+                    Spawning.instance.destroyFoodClone();
+                }
+
                 break;
 
             case "BoxWithFood":
