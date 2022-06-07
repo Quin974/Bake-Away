@@ -8,7 +8,7 @@ public class Spawning : MonoBehaviour
 
     public GameObject box;
     private float boxPosX = 0f;
-    private float boxPosY = 0f;
+    private float boxPosY = -0.42f;
     private GameObject boxClone;
     private bool canSpawnBox = true;
 
@@ -24,7 +24,7 @@ public class Spawning : MonoBehaviour
 
     public GameObject closedBox;
     private float closedBoxPosX = 0f;
-    private float closedBoxPosY = -0.65f;
+    private float closedBoxPosY = -0.91f;
     private GameObject closedBoxClone;
     private SpriteRenderer foodChosenRenderer;
 
@@ -32,8 +32,11 @@ public class Spawning : MonoBehaviour
     private GameObject closedCupClone;
 
     public GameObject customer;
+    private int i = -1;
     private List<Vector2> customerPosList;
     private List<Vector2> existPosList;
+    private List<GameObject> customerClone;
+    private bool canLeave = false;
 
     private float maxTime = 10.0f;
     private float minTime = 3.0f;
@@ -49,6 +52,7 @@ public class Spawning : MonoBehaviour
     {
         customerPosList = new List<Vector2>();
         existPosList = new List<Vector2>();
+        customerClone = new List<GameObject>();
 
         Vector2 pos1 = new Vector2(-3.29f, -0.19f);
         Vector2 pos2 = new Vector2(0, -0.19f);
@@ -160,6 +164,7 @@ public class Spawning : MonoBehaviour
     private void spawnCustomer()
     {
         int posIndex = 0;
+        i++;
 
         if (existPosList.Count < 3)
         {
@@ -167,7 +172,8 @@ public class Spawning : MonoBehaviour
             {
                 posIndex = Random.Range(0, customerPosList.Count);
             } while (checkOverlap(customerPosList[posIndex]));
-            Instantiate(customer, customerPosList[posIndex], customer.transform.rotation);
+            GameObject tmp = Instantiate(customer, customerPosList[posIndex], customer.transform.rotation);
+            customerClone.Add(tmp);
             existPosList.Add(customerPosList[posIndex]);
         }
     }
@@ -187,16 +193,59 @@ public class Spawning : MonoBehaviour
         return check;
     }
 
-    public void serveFood()
+    public bool checkOrder(GameObject obj)
     {
+        bool check = false;
         string foodName = foodChosenRenderer.sprite.name;
-        string foodOrder = Order.instance.getSpriteName();
+        string foodOrder = obj.transform.Find("Order").GetComponent<SpriteRenderer>().sprite.name;
 
         if (foodName == foodOrder)
         {
-            Destroy(closedBoxClone);
-            canSpawnBox = true;
-            canSpawnFood = true;
+            check = true;
+        }
+
+        return check;
+    }
+
+    public bool checkDrink(GameObject obj, string drinkName)
+    {
+        bool check = false;
+        Debug.Log("Drink: " + drinkName);
+        string drinkOrder = obj.transform.Find("Order").GetComponent<SpriteRenderer>().sprite.name;
+        Debug.Log("Order: " + drinkOrder);
+        if (drinkOrder == drinkName)
+        {
+            check = true;
+        }
+
+        return check;
+    }
+
+    public void serveFood()
+    {
+        Destroy(closedBoxClone);
+        canSpawnBox = true;
+        canSpawnFood = true;
+        canLeave = true;
+    }
+
+    public void serveDrink()
+    {
+        Destroy(closedCupClone);
+        canSpawnCup = true;
+        canLeave = true;
+    }
+
+    public void customerLeave(GameObject obj)
+    {
+        for (int i = 0; i < customerClone.Count; i++)
+        {
+            if (obj.transform.position == customerClone[i].transform.position && canLeave)
+            {
+                Destroy(customerClone[i].gameObject);
+                customerClone.RemoveAt(i);
+                canLeave = false;
+            }
         }
     }
 }

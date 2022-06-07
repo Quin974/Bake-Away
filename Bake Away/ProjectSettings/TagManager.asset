@@ -12,6 +12,7 @@ TagManager:
   - CoffeeMachine
   - BoxWithFood
   - Customer
+  - CupWithCoffee
   layers:
   - Default
   - TransparentFX
