@@ -36,6 +36,7 @@ public class Spawning : MonoBehaviour
     private List<Vector2> customerPosList;
     private List<Vector2> existPosList;
     private List<GameObject> customerClone;
+    public Sprite[] customerEmotion;
     private bool canLeave = false;
 
     private float maxTime = 10.0f;
@@ -101,10 +102,17 @@ public class Spawning : MonoBehaviour
 
     public void spawnFood(int index)
     {
+        GameObject tmp = boxClone.transform.GetChild(0).gameObject;
+
         if (canSpawnFood && !canSpawnBox)
         {
             foodRenderer.sprite = foodSprite[index];
             canSpawnFood = false;
+
+            if (index == 1)
+            {
+                tmp.transform.localScale = new Vector3(0.6f, 0.6f);
+            }
         }
     }
 
@@ -241,6 +249,31 @@ public class Spawning : MonoBehaviour
         canLeave = true;
     }
 
+    public void happyCustomer(GameObject obj)
+    {
+        StartCoroutine(waitBeforeLeaving(obj));
+    }
+
+    public void angryCustomer(GameObject obj)
+    {
+        StartCoroutine(angryWaiting(obj));
+    }
+
+    IEnumerator waitBeforeLeaving(GameObject obj)
+    {
+        obj.GetComponent<SpriteRenderer>().sprite = customerEmotion[0];
+        yield return new WaitForSeconds(1.0f);
+        customerLeave(obj);
+    }
+
+    IEnumerator angryWaiting(GameObject obj)
+    {
+        Sprite tmp = obj.GetComponent<SpriteRenderer>().sprite;
+        obj.GetComponent<SpriteRenderer>().sprite = customerEmotion[1];
+        yield return new WaitForSeconds(1.0f);
+        obj.GetComponent<SpriteRenderer>().sprite = tmp;
+    }
+
     public void customerLeave(GameObject obj)
     {
         for (int i = 0; i < customerClone.Count; i++)
@@ -249,6 +282,7 @@ public class Spawning : MonoBehaviour
             {
                 Destroy(customerClone[i].gameObject);
                 customerClone.RemoveAt(i);
+                existPosList.RemoveAt(i);
                 canLeave = false;
             }
         }

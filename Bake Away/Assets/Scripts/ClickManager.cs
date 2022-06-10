@@ -43,6 +43,10 @@ public class ClickManager : MonoBehaviour
                 Spawning.instance.spawnFood(0);
                 break;
 
+            case "Tiramisu":
+                Spawning.instance.spawnFood(1);
+                break;
+
             case "OpenedBox":
                 Spawning.instance.closingBox();
                 break;
@@ -107,7 +111,7 @@ public class ClickManager : MonoBehaviour
                     if (Spawning.instance.checkOrder(obj))
                     {
                         Spawning.instance.serveFood();
-                        Spawning.instance.customerLeave(obj);
+                        Spawning.instance.happyCustomer(obj);
                         clickedFoodBox = false;
                         canClick = true;
                     }
@@ -115,6 +119,7 @@ public class ClickManager : MonoBehaviour
                     else
                     {
                         deHighLight(tmpObj);
+                        Spawning.instance.angryCustomer(obj);
                         clickedFoodBox = false;
                         canClick = true;
                     }  
@@ -125,7 +130,7 @@ public class ClickManager : MonoBehaviour
                     if (Spawning.instance.checkDrink(obj, drinkName))
                     {
                         Spawning.instance.serveDrink();
-                        Spawning.instance.customerLeave(obj);
+                        Spawning.instance.happyCustomer(obj);
                         clickedCoffeeCup = false;
                         canClick = true;
                     }
@@ -133,6 +138,7 @@ public class ClickManager : MonoBehaviour
                     else
                     {
                         deHighLight(tmpObj);
+                        Spawning.instance.angryCustomer(obj);
                         clickedCoffeeCup = false;
                         canClick = true;
                     }

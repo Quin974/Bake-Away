@@ -13,6 +13,7 @@ TagManager:
   - BoxWithFood
   - Customer
   - CupWithCoffee
+  - Tiramisu
   layers:
   - Default
   - TransparentFX

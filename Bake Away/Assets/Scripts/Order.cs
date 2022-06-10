@@ -19,7 +19,7 @@ public class Order : MonoBehaviour
         changeSprite();
     }
 
-    private void changeSprite()
+    public void changeSprite()
     {
         int spriteIndex = Random.Range(0, spriteArray.Length);
         spriteRenderer.sprite = spriteArray[spriteIndex];
