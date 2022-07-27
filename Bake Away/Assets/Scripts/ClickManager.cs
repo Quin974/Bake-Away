@@ -47,6 +47,14 @@ public class ClickManager : MonoBehaviour
                 Spawning.instance.spawnFood(1);
                 break;
 
+            case "Donut":
+                Spawning.instance.spawnFood(2);
+                break;
+
+            case "Cupcake":
+                Spawning.instance.spawnFood(3);
+                break;
+
             case "OpenedBox":
                 Spawning.instance.closingBox();
                 break;

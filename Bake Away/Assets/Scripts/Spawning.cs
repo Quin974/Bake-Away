@@ -109,9 +109,14 @@ public class Spawning : MonoBehaviour
             foodRenderer.sprite = foodSprite[index];
             canSpawnFood = false;
 
-            if (index == 1)
+            if (index == 0)
             {
-                tmp.transform.localScale = new Vector3(0.6f, 0.6f);
+                tmp.transform.localScale = new Vector3(0.4f, 0.4f);
+            }
+
+            if (index == 3)
+            {
+                tmp.transform.localPosition = new Vector3(0f, -0.39f);
             }
         }
     }
@@ -190,6 +195,9 @@ public class Spawning : MonoBehaviour
             GameObject tmp = Instantiate(customer, customerPosList[posIndex], customer.transform.rotation);
             customerClone.Add(tmp);
             existPosList.Add(customerPosList[posIndex]);
+
+            GameObject timer = tmp.transform.GetChild(2).gameObject;
+            timer.SetActive(true);
         }
     }
 
@@ -251,27 +259,32 @@ public class Spawning : MonoBehaviour
 
     public void happyCustomer(GameObject obj)
     {
-        StartCoroutine(waitBeforeLeaving(obj));
+        StartCoroutine(happyLeaving(obj));
     }
 
     public void angryCustomer(GameObject obj)
     {
-        StartCoroutine(angryWaiting(obj));
+        StartCoroutine(angryReceivingWrongOrder(obj));
     }
 
-    IEnumerator waitBeforeLeaving(GameObject obj)
+    IEnumerator happyLeaving(GameObject obj)
     {
         obj.GetComponent<SpriteRenderer>().sprite = customerEmotion[0];
         yield return new WaitForSeconds(1.0f);
         customerLeave(obj);
     }
 
-    IEnumerator angryWaiting(GameObject obj)
+    IEnumerator angryReceivingWrongOrder(GameObject obj)
     {
         Sprite tmp = obj.GetComponent<SpriteRenderer>().sprite;
         obj.GetComponent<SpriteRenderer>().sprite = customerEmotion[1];
         yield return new WaitForSeconds(1.0f);
         obj.GetComponent<SpriteRenderer>().sprite = tmp;
+    }
+
+    public void angryWaiting(GameObject obj)
+    {
+        obj.GetComponent<SpriteRenderer>().sprite = customerEmotion[1];
     }
 
     public void customerLeave(GameObject obj)
