@@ -102,21 +102,29 @@ public class Spawning : MonoBehaviour
 
     public void spawnFood(int index)
     {
-        GameObject tmp = boxClone.transform.GetChild(0).gameObject;
-
-        if (canSpawnFood && !canSpawnBox)
+        if (boxClone != null)
         {
-            foodRenderer.sprite = foodSprite[index];
-            canSpawnFood = false;
+            GameObject tmp = boxClone.transform.GetChild(0).gameObject;
 
-            if (index == 0)
+            if (canSpawnFood && !canSpawnBox)
             {
-                tmp.transform.localScale = new Vector3(0.4f, 0.4f);
-            }
+                foodRenderer.sprite = foodSprite[index];
+                canSpawnFood = false;
 
-            if (index == 3)
-            {
-                tmp.transform.localPosition = new Vector3(0f, -0.39f);
+                if (index == 0)
+                {
+                    tmp.transform.localScale = new Vector3(0.4f, 0.4f);
+                }
+
+                if (index == 2)
+                {
+                    tmp.transform.localPosition = new Vector3(0f, -0.98f);
+                }
+
+                if (index == 3)
+                {
+                    tmp.transform.localPosition = new Vector3(0f, -0.48f);
+                }
             }
         }
     }
@@ -257,14 +265,27 @@ public class Spawning : MonoBehaviour
         canLeave = true;
     }
 
-    public void happyCustomer(GameObject obj)
+    public void happyCustomerLeaving(GameObject obj)
     {
         StartCoroutine(happyLeaving(obj));
+    }
+
+    public void angryCustomerLeaving(GameObject obj)
+    {
+        canLeave = true;
+        StartCoroutine(angryLeaving(obj));
     }
 
     public void angryCustomer(GameObject obj)
     {
         StartCoroutine(angryReceivingWrongOrder(obj));
+    }
+
+    IEnumerator angryLeaving(GameObject obj)
+    {
+        obj.GetComponent<SpriteRenderer>().sprite = customerEmotion[1];
+        yield return new WaitForSeconds(1.5f);
+        customerLeave(obj);
     }
 
     IEnumerator happyLeaving(GameObject obj)

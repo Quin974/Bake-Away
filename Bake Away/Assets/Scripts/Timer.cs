@@ -15,10 +15,10 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        timeCountDown();
+        //timeCountDown();
     }
 
-    private  void timeCountDown()
+    private void timeCountDown()
     {
         if (timeRunning)
         {

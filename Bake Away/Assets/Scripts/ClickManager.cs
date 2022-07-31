@@ -119,15 +119,23 @@ public class ClickManager : MonoBehaviour
                     if (Spawning.instance.checkOrder(obj))
                     {
                         Spawning.instance.serveFood();
-                        Spawning.instance.happyCustomer(obj);
+                        obj.GetComponent<CustomerTimer>().stopClock();
+                        Spawning.instance.happyCustomerLeaving(obj);
                         clickedFoodBox = false;
                         canClick = true;
                     }
 
                     else
                     {
+                        obj.GetComponent<CustomerTimer>().newTry();
+                        obj.GetComponent<CustomerTimer>().chancesCheck(obj);
                         deHighLight(tmpObj);
-                        Spawning.instance.angryCustomer(obj);
+                        
+                        if (obj != null)
+                        {
+                            Spawning.instance.angryCustomer(obj);
+                        }
+
                         clickedFoodBox = false;
                         canClick = true;
                     }  
@@ -138,15 +146,23 @@ public class ClickManager : MonoBehaviour
                     if (Spawning.instance.checkDrink(obj, drinkName))
                     {
                         Spawning.instance.serveDrink();
-                        Spawning.instance.happyCustomer(obj);
+                        obj.GetComponent<CustomerTimer>().stopClock();
+                        Spawning.instance.happyCustomerLeaving(obj);
                         clickedCoffeeCup = false;
                         canClick = true;
                     }
 
                     else
                     {
+                        obj.GetComponent<CustomerTimer>().newTry();
+                        obj.GetComponent<CustomerTimer>().chancesCheck(obj);
                         deHighLight(tmpObj);
-                        Spawning.instance.angryCustomer(obj);
+                        
+                        if (obj != null)
+                        {
+                            Spawning.instance.angryCustomer(obj);
+                        }
+
                         clickedCoffeeCup = false;
                         canClick = true;
                     }
